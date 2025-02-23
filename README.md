@@ -15,7 +15,7 @@ Installation
 
 Clone this repository:
 
-git clone https://github.com/your-username/internet-speed-detector.git
+git clone https://github.com/your-username/internet speed tester.git
 
 Navigate to the project folder:
 
