@@ -11,18 +11,6 @@ Features
 ✅ Built with HTML, CSS, and JavaScript (No external libraries required)
 
 
-Installation
-
-Clone this repository:
-
-git clone https://github.com/your-username/internet speed tester.git
-
-Navigate to the project folder:
-
-cd network-speed-detector
-
-Open index.html in your browser.
-
 Usage
 
 Click the "Check Speed" button.
@@ -32,3 +20,13 @@ The tool will measure your internet speed.
 The speedometer needle will rotate based on the detected speed.
 
 The result will be displayed below the speedometer.
+
+📂 network-speed-detector
+
+ ├── 📄 speed.html   # Main HTML file
+ 
+ ├── 📄 speed.css    # CSS for styling
+ 
+ ├── 📄 README.md    # Project documentation
+
+
