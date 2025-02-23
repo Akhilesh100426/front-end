@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>Network Speed Detector</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="speed.css">
+    </head>
+    <body>
+        <div class="container">
+            <h2>Network Speed Detector</h2>
+            <button onclick="startSpeedTest()">Check Speed</button>
+            
+            <!-- Speedometer -->
+            <div class="speedometer">
+                <svg width="200" height="100" viewBox="0 0 200 100">
+                    <!-- Arc -->
+                    <path d="M10,90 Q100,-30 190,90" stroke="black" stroke-width="5" fill="none"/>
+                    
+                    <!-- Speed Labels -->
+                    <text x="-1" y="100" class="mbps-labels">0 Mbps</text>
+                    <text x="75" y="27" class="mbps-labels">50 Mbps</text>
+                    <text x="135" y="100" class="mbps-labels">100 Mbps</text>
+                </svg>
+                <div class="needle" id="needle"></div>
+            </div>
+            
+            <p id="speed-label" class="speed-label">Speed: 0 Mbps</p>
+            <p id="result"></p>
+        </div>
+
+        <script>
+            let userimglink = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png";
+            let downloadsize = 1000000; // 1 MB
+            let time_start, time_end;
+
+            function startSpeedTest() {
+                document.getElementById("result").innerHTML = "Checking speed...";
+                document.getElementById("speed-label").innerText = "Speed: 0 Mbps";
+                updateSpeedometer(0); 
+
+                let downloadimgsrc = new Image();
+                downloadimgsrc.onload = function() {
+                    time_end = new Date().getTime();
+                    displayResults();
+                };
+
+                time_start = new Date().getTime();
+                downloadimgsrc.src = userimglink + "?t=" + time_start + "&rand=" + Math.random();
+            }
+
+            function displayResults() {
+                let duration = (time_end - time_start) / 1000;
+                let bitsloaded = downloadsize * 8;
+                let speedbps = (bitsloaded / duration).toFixed(2);
+                let speedkbps = (speedbps / 1024).toFixed(2);
+                let speedmbps = (speedkbps / 1024).toFixed(2);
+
+                let result = "Your connection speed is:<br>";
+                result += `<strong>${speedbps}</strong> bps <br>`;
+                result += `<strong>${speedkbps}</strong> kbps <br>`;
+                result += `<strong>${speedmbps}</strong> mbps <br>`;
+
+                document.getElementById("result").innerHTML = result;
+                document.getElementById("speed-label").innerText = `Speed: ${speedmbps} Mbps`;
+
+                updateSpeedometer(speedmbps);
+            }
+
+            function updateSpeedometer(speed) {
+                let maxSpeed = 100; 
+                let angle = Math.min((speed / maxSpeed) * 180 - 90, 90); 
+                document.getElementById("needle").style.transform = `rotate(${angle}deg)`;
+            }
+        </script>
+    </body>
+</html>
